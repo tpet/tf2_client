@@ -19,7 +19,7 @@ def get_buffer():
             check_frequency = rospy.get_param('~tf2/check_frequency', None)
             timeout_padding = rospy.Duration(rospy.get_param('~tf2/timeout_padding', 2.0))
             # local
-            cache_time = rospy.get_param('~tf2/cache_time', 10.0)
+            cache_time = rospy.Duration(rospy.get_param('~tf2/cache_time', 10.0))
             queue_size = rospy.get_param('~tf2/queue_size', None)
             buff_size = rospy.get_param('~tf2/buff_size', 65536)
             if ns:
