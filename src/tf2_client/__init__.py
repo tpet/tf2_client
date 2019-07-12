@@ -14,18 +14,20 @@ def get_buffer():
     global _buffer, _listener, _lock
     with _lock:
         if _buffer is None:
-            # remote
-            ns = rospy.get_param('~tf2/ns', None)
-            check_frequency = rospy.get_param('~tf2/check_frequency', None)
-            timeout_padding = rospy.Duration(rospy.get_param('~tf2/timeout_padding', 2.0))
-            # local
-            cache_time = rospy.Duration(rospy.get_param('~tf2/cache_time', 10.0))
-            queue_size = rospy.get_param('~tf2/queue_size', None)
-            buff_size = rospy.get_param('~tf2/buff_size', 65536)
-            if ns:
-                _buffer = BufferClient(ns, check_frequency, timeout_padding)
+            server = rospy.get_param('~tf_server', None)
+            if server:
+                check_frequency = rospy.get_param('~tf_check_frequency', None)
+                timeout_padding = rospy.get_param('~tf_timeout_padding', 2.0)
+                _buffer = BufferClient(server, check_frequency, rospy.Duration(timeout_padding))
+                rospy.loginfo('Using tf buffer client (server %s, timeout padding %.3g s).',
+                              server, timeout_padding)
             else:
-                _buffer = Buffer(cache_time)
+                cache_time = rospy.get_param('~tf_cache_time', 10.0)
+                queue_size = rospy.get_param('~tf_queue_size', None)
+                buff_size = rospy.get_param('~tf_buff_size', 65536)
+                _buffer = Buffer(rospy.Duration(cache_time))
                 _listener = TransformListener(_buffer, queue_size, buff_size)
+                rospy.loginfo('Using local tf buffer (cache %.3g s, queue size %s, buffer size %s).',
+                              cache_time, queue_size, buff_size)
 
         return _buffer

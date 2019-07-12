@@ -7,6 +7,8 @@
     <license>MIT</license>
     <author email="tpetricek@gmail.com">Tomas Petricek</author>
     <buildtool_depend>catkin</buildtool_depend>
+    <depend>roscpp</depend>
     <depend>rospy</depend>
+    <depend>tf2</depend>
     <depend>tf2_ros</depend>
 </package>
