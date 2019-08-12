@@ -18,7 +18,7 @@ def get_buffer():
             if server:
                 check_frequency = rospy.get_param('~tf_check_frequency', None)
                 timeout_padding = rospy.get_param('~tf_timeout_padding', 2.0)
-                _buffer = BufferClient(server, check_frequency, rospy.Duration(timeout_padding))
+                _buffer = BufferClient(server, check_frequency, rospy.Duration.from_sec(timeout_padding))
                 rospy.loginfo('Using tf buffer client (server %s, timeout padding %.3g s).',
                               server, timeout_padding)
             else:
