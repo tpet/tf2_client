@@ -3,7 +3,10 @@ import rospy
 from tf2_ros import Buffer, TransformListener, BufferClient
 from threading import Lock
 
-__all__ = ['get_buffer']
+__all__ = [
+    'clear',
+    'get_buffer'
+]
 
 _lock = Lock()
 _buffer = None
@@ -11,7 +14,7 @@ _listener = None
 
 
 def get_buffer():
-    global _buffer, _listener, _lock
+    global _buffer, _listener
     with _lock:
         if _buffer is None:
             server = rospy.get_param('~tf_server', None)
@@ -31,3 +34,13 @@ def get_buffer():
                               cache_time, queue_size, buff_size)
 
         return _buffer
+
+
+def clear(buffer=True, listener=True):
+    global _buffer, _listener
+    with _lock:
+        if listener and _listener is not None:
+            _listener.unregister()
+            _listener = None
+        if buffer and _buffer is not None:
+            _buffer = None
