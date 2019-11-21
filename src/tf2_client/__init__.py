@@ -42,5 +42,7 @@ def clear(buffer=True, listener=True):
         if listener and _listener is not None:
             _listener.unregister()
             _listener = None
+            rospy.loginfo('Listener unregistered and deleted.')
         if buffer and _buffer is not None:
             _buffer = None
+            rospy.loginfo('Buffer deleted.')
