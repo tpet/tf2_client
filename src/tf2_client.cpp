@@ -7,12 +7,13 @@
 
 namespace tf2_client {
 
-static BufferPtr get_buffer(const ros::NodeHandle& nh, const ros::NodeHandle& pnh) {
+BufferPtr get_buffer(ros::NodeHandle& nh) {
     static std::mutex mtx;
     std::lock_guard<std::mutex> lck(mtx);
     static BufferPtr buffer;
     typedef std::unique_ptr<tf2_ros::TransformListener> ListenerPtr;
     static ListenerPtr listener;
+    ros::NodeHandle pnh(nh, "~");
     if (!buffer) {
         std::string server("");
         pnh.param("tf_server", server, server);

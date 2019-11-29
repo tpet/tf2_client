@@ -12,13 +12,13 @@ find_package(catkin REQUIRED
 catkin_python_setup()
 
 catkin_package(
-    INCLUDE_DIRS include
-    LIBRARIES ${PROJECT_NAME}
     CATKIN_DEPENDS
         roscpp
         rospy
         tf2
         tf2_ros
+    INCLUDE_DIRS include
+    LIBRARIES ${PROJECT_NAME}
 )
 
 include_directories(include ${catkin_INCLUDE_DIRS})
@@ -28,4 +28,7 @@ link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 install(DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
