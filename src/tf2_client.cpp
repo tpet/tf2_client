@@ -14,9 +14,9 @@ BufferPtr get_buffer(ros::NodeHandle &nh, ros::NodeHandle &pnh) {
     typedef std::unique_ptr<tf2_ros::TransformListener> ListenerPtr;
     static ListenerPtr listener;
     if (!buffer) {
-        std::string server("");
+        std::string server;
         pnh.param("tf_server", server, server);
-        if (server.empty()) {
+        if (!server.empty()) {
             double check_frequency(10.0);
             pnh.param("tf_check_frequency", check_frequency, check_frequency);
             double timeout_padding(2.0);
