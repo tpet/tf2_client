@@ -29,7 +29,7 @@ BufferPtr get_buffer(ros::NodeHandle &nh, ros::NodeHandle &pnh) {
             pnh.param("tf_cache_time", cache_time, cache_time);
 
             buffer = std::make_shared<tf2_ros::Buffer>(ros::Duration(cache_time));
-            listener = std::make_unique<tf2_ros::TransformListener>(static_cast<tf2_ros::Buffer&>(*buffer), nh, true);
+            listener = std::make_unique<tf2_ros::TransformListener>(dynamic_cast<tf2_ros::Buffer &>(*buffer), nh, true);
             ROS_INFO("Using local tf buffer (cache %.3g s).", cache_time);
         }
     }
