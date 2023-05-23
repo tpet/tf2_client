@@ -2,8 +2,8 @@
 Changelog for package tf2_client
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2023-05-23)
+------------------
 * Adding default server launcher, with install.
 * Cmake refactor, namespaced cpp file, dynamic cast to subclass.
 * Fix client/server switch in c++ client.
